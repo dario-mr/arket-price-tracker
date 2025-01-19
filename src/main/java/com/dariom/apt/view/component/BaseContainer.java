@@ -6,7 +6,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 public class BaseContainer extends VerticalLayout {
 
-  private static final String MAX_WINDOW_WIDTH = "1000px";
+  private static final String MAX_WINDOW_WIDTH = "1200px";
 
   public BaseContainer(Component... children) {
     setHeightFull();
