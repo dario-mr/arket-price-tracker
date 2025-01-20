@@ -14,13 +14,17 @@ public class PriceTrackingRepository {
   private final PriceTrackingJpaRepository jpaRepository;
 
   public List<PriceTracking> getPriceTrackings() {
-    return jpaRepository.findAll().stream()
+    return jpaRepository.findAllByOrderByCreatedAtAsc().stream()
         .map(this::toDomain)
         .toList();
   }
 
   public void delete(Long id) {
     jpaRepository.deleteById(id);
+  }
+
+  public void save(PriceTracking priceTracking) {
+    jpaRepository.save(toEntity(priceTracking));
   }
 
   private PriceTracking toDomain(PriceTrackingEntity entity) {
@@ -32,5 +36,15 @@ public class PriceTrackingRepository {
         entity.getProductName(),
         entity.getDesiredPrice()
     );
+  }
+
+  private PriceTrackingEntity toEntity(PriceTracking domain) {
+    return PriceTrackingEntity.builder()
+        .createdAt(domain.createdAt())
+        .active(domain.active())
+        .link(domain.link())
+        .productName(domain.productName())
+        .desiredPrice(domain.desiredPrice())
+        .build();
   }
 }

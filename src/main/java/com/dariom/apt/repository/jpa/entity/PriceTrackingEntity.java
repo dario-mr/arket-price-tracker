@@ -62,6 +62,6 @@ public class PriceTrackingEntity {
 
   @Override
   public int hashCode() {
-    return getClass().hashCode();
+    return Objects.hash(id);
   }
 }

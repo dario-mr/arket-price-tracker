@@ -5,6 +5,9 @@ import static com.vaadin.flow.component.icon.VaadinIcon.TRASH;
 
 import com.dariom.apt.core.domain.PriceTracking;
 import com.dariom.apt.core.service.PriceTrackingService;
+import com.dariom.apt.event.CreatePriceTrackingEvent;
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
@@ -16,7 +19,7 @@ import java.util.ArrayList;
 public class PriceTrackingGrid extends Grid<PriceTracking> {
 
   private final PriceTrackingService priceTrackingService;
-  private final ListDataProvider<PriceTracking> dataProvider;
+  private ListDataProvider<PriceTracking> dataProvider;
 
   public PriceTrackingGrid(PriceTrackingService priceTrackingService) {
     this.priceTrackingService = priceTrackingService;
@@ -35,7 +38,21 @@ public class PriceTrackingGrid extends Grid<PriceTracking> {
         new Button(TRASH.create(), e -> showDeleteConfirmation(tracking))))
         .setAutoWidth(true);
 
-    // load data
+    loadData();
+  }
+
+  @Override
+  protected void onAttach(AttachEvent attachEvent) {
+    super.onAttach(attachEvent);
+
+    ComponentUtil.addListener(
+        attachEvent.getUI(),
+        CreatePriceTrackingEvent.class,
+        event -> loadData()
+    );
+  }
+
+  private void loadData() {
     var trackings = new ArrayList<>(priceTrackingService.getPriceTrackings()); // mutable list
     dataProvider = new ListDataProvider<>(trackings);
     setDataProvider(dataProvider);

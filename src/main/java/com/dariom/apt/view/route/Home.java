@@ -4,8 +4,9 @@ import static com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment.CE
 
 import com.dariom.apt.core.service.PriceTrackingService;
 import com.dariom.apt.view.component.BaseContainer;
+import com.dariom.apt.view.component.CreatePriceTracking;
+import com.dariom.apt.view.component.Headline;
 import com.dariom.apt.view.component.PriceTrackingGrid;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -25,17 +26,10 @@ public class Home extends VerticalLayout {
     setAlignItems(CENTER);
     setPadding(false);
 
-    // title
-    var title = new H1("Arket Price Tracker");
-    title.getStyle()
-        .set("font-size", "var(--lumo-font-size-l)")
-        .set("margin", "var(--lumo-space-m) var(--lumo-space-l)");
-    title.addClassNames("headline");
-
     // main container
     var container = new BaseContainer(
-        title,
-        // TODO create tracking component
+        new Headline(),
+        new CreatePriceTracking(priceTrackingService),
         new PriceTrackingGrid(priceTrackingService)
     );
 
