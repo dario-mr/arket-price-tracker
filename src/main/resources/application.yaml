@@ -5,6 +5,15 @@ spring:
   profiles.active: ${PROFILE:prod}
   config.import: optional:file:.env[.properties] # enable scanning of .env file
 
+price-checker.job:
+  active: true
+  refresh-interval-ms: 300000 # 5 minutes
+
+sender:
+  address: dario.mauri9@gmail.com
+  password: ${SENDER_PASSWORD}
+recipient.addresses: dario.mauri9@gmail.com # TODO configurable via GUI?
+
 ---
 spring:
   config.activate.on-profile: dev
