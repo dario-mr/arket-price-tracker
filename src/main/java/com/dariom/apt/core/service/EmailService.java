@@ -19,22 +19,21 @@ import static java.lang.String.format;
 public class EmailService {
 
     private final Session emailSession;
+    private final NotificationSettingsService notificationSettingsService;
 
     @Value("${sender.address}")
     private String sender;
 
-    @Value("${recipient.addresses}")
-    private String recipients;
-
     public void send(String subject, String body) {
         log.info("Sending email...");
+        var notificationEmail = notificationSettingsService.getNotificationEmail();
 
         try {
             var message = new MimeMessage(emailSession);
             message.setFrom(new InternetAddress(sender));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse(recipients)
+                    InternetAddress.parse(notificationEmail)
             );
             message.setSubject(subject);
             message.setText(body);
@@ -42,7 +41,7 @@ public class EmailService {
             Transport.send(message);
             log.info("Email sent!");
         } catch (Exception ex) {
-            throw new RuntimeException(format("Failed to send email from [%s] to [%s]", sender, recipients), ex);
+            throw new RuntimeException(format("Failed to send email from [%s] to [%s]", sender, notificationEmail), ex);
         }
     }
 }

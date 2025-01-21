@@ -56,7 +56,7 @@ public class PriceTrackingEntity {
     if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
       return false;
     }
-    PriceTrackingEntity that = (PriceTrackingEntity) o;
+    var that = (PriceTrackingEntity) o;
     return id != null && Objects.equals(id, that.id);
   }
 
