@@ -5,7 +5,7 @@ COPY . .
 RUN mvn package -DskipTests
 
 # Stage 2: Create a smaller image with only the JAR file and Playwright binaries
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 
 # Install maven (required to install Playwright)
