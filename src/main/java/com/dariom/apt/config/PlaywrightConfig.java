@@ -1,8 +1,8 @@
 package com.dariom.apt.config;
 
 import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import jakarta.annotation.PreDestroy;
 import org.springframework.context.annotation.Bean;
@@ -15,11 +15,15 @@ public class PlaywrightConfig {
     private Browser browser;
 
     @Bean
-    public BrowserContext browserContext() {
+    public Page page() {
         playwright = Playwright.create();
         browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
 
-        return browser.newContext();
+        var context = browser.newContext();
+        var page = context.newPage();
+        page.setDefaultNavigationTimeout(120_000);
+
+        return page;
     }
 
     @PreDestroy

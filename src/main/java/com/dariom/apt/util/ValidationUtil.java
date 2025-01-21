@@ -21,9 +21,6 @@ public class ValidationUtil {
         if (email.isBlank()) {
             return new ValidationResult(false, "Please enter a valid email");
         }
-        if (!email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
-            return new ValidationResult(false, "Please enter a valid email");
-        }
 
         return new ValidationResult(true, "");
     }

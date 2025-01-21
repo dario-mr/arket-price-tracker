@@ -1,6 +1,6 @@
 package com.dariom.apt.core.service;
 
-import com.microsoft.playwright.BrowserContext;
+import com.microsoft.playwright.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +11,9 @@ import static java.lang.System.lineSeparator;
 @RequiredArgsConstructor
 public class DocumentService {
 
-    private final BrowserContext browserContext;
+    private final Page page;
 
     public String getPage(String url) {
-        var page = browserContext.newPage();
-
         try {
             page.navigate(url);
             return page.content();
