@@ -29,9 +29,9 @@ public class PriceCheckService {
     }
 
     private void checkPrice(PriceTracking tracking) {
-        var link = tracking.link();
-        var desiredPrice = tracking.desiredPrice();
-        var productName = tracking.productName();
+        var link = tracking.getLink();
+        var desiredPrice = tracking.getDesiredPrice();
+        var productName = tracking.getProductName();
         log.info("Checking Arket item {} with desired price {}...", link, desiredPrice);
 
         var currentPrice = extractPrice(link);

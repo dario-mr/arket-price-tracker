@@ -1,7 +1,7 @@
 package com.dariom.apt.view.component;
 
 import com.dariom.apt.core.service.NotificationSettingsService;
-import com.dariom.apt.view.component.notifcation.SuccessNotification;
+import com.dariom.apt.view.component.notifcation.Toast;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -22,6 +22,7 @@ public class NotificationSettings extends VerticalLayout {
         this.notificationSettingsService = notificationSettingsService;
 
         setPadding(false);
+        setSpacing(false);
         setWidthFull();
 
         var notificationEmail = notificationSettingsService.getNotificationEmail();
@@ -50,6 +51,6 @@ public class NotificationSettings extends VerticalLayout {
         }
 
         notificationSettingsService.updateNotificationEmail(notificationEmail);
-        SuccessNotification.show("Email updated");
+        Toast.success("Email updated");
     }
 }

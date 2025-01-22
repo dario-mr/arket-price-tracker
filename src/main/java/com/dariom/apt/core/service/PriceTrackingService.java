@@ -30,13 +30,20 @@ public class PriceTrackingService {
 
     public void createPriceTracking(String link, BigDecimal desiredPrice) {
         var productName = getProductNameFromLink(link);
-        var priceTracking = new PriceTracking(null, Instant.now(), true, link, productName, desiredPrice);
+        var priceTracking = PriceTracking.builder()
+                .id(null)
+                .createdAt(Instant.now())
+                .active(true)
+                .link(link)
+                .productName(productName)
+                .desiredPrice(desiredPrice)
+                .build();
 
         priceTrackingRepository.save(priceTracking);
     }
 
-    public void updateActive(long id, boolean active) {
-        priceTrackingRepository.updateActiveById(id, active);
+    public void updatePriceTracking(PriceTracking priceTracking) {
+        priceTrackingRepository.save(priceTracking);
     }
 
     private String getProductNameFromLink(String link) {

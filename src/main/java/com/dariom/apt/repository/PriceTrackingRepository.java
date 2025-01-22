@@ -34,29 +34,25 @@ public class PriceTrackingRepository {
         jpaRepository.save(toEntity(priceTracking));
     }
 
-    public void updateActiveById(long id, boolean active) {
-        jpaRepository.updateActiveById(id, active);
-    }
-
     private PriceTracking toDomain(PriceTrackingEntity entity) {
-        return new PriceTracking(
-                entity.getId(),
-                entity.getCreatedAt(),
-                entity.getActive(),
-                entity.getLink(),
-                entity.getProductName(),
-                entity.getDesiredPrice()
-        );
+        return PriceTracking.builder()
+                .id(entity.getId())
+                .createdAt(entity.getCreatedAt())
+                .active(entity.getActive())
+                .link(entity.getLink())
+                .productName(entity.getProductName())
+                .desiredPrice(entity.getDesiredPrice())
+                .build();
     }
 
     private PriceTrackingEntity toEntity(PriceTracking domain) {
         return PriceTrackingEntity.builder()
-                .id(domain.id())
-                .createdAt(domain.createdAt())
-                .active(domain.active())
-                .link(domain.link())
-                .productName(domain.productName())
-                .desiredPrice(domain.desiredPrice())
+                .id(domain.getId())
+                .createdAt(domain.getCreatedAt())
+                .active(domain.getActive())
+                .link(domain.getLink())
+                .productName(domain.getProductName())
+                .desiredPrice(domain.getDesiredPrice())
                 .build();
     }
 }

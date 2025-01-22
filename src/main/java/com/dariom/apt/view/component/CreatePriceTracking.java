@@ -2,8 +2,7 @@ package com.dariom.apt.view.component;
 
 import com.dariom.apt.core.service.PriceTrackingService;
 import com.dariom.apt.event.CreatePriceTrackingEvent;
-import com.dariom.apt.view.component.notifcation.SuccessNotification;
-import com.dariom.apt.view.component.notifcation.WarnNotification;
+import com.dariom.apt.view.component.notifcation.Toast;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -30,6 +29,7 @@ public class CreatePriceTracking extends VerticalLayout {
         this.priceTrackingService = priceTrackingService;
 
         setPadding(false);
+        setSpacing(false);
         setWidthFull();
 
         // fields
@@ -65,13 +65,13 @@ public class CreatePriceTracking extends VerticalLayout {
             priceTrackingService.createPriceTracking(link, desiredPriceBigDecimal);
         } catch (Exception e) {
             log.error("Error creating price tracking", e);
-            WarnNotification.show(e.getMessage());
+            Toast.error("Error creating price tracking: " + e.getMessage());
             return;
         }
 
         linkField.clear();
         priceField.clear();
-        SuccessNotification.show("Tracking created!");
+        Toast.success("Tracking created!");
         ComponentUtil.fireEvent(UI.getCurrent(), new CreatePriceTrackingEvent());
     }
 }

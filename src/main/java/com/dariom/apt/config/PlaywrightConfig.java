@@ -21,7 +21,7 @@ public class PlaywrightConfig {
 
         var context = browser.newContext();
         var page = context.newPage();
-        page.setDefaultNavigationTimeout(120_000);
+        page.setDefaultNavigationTimeout(120_000); // 2 minutes timeout
 
         return page;
     }
