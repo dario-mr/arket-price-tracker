@@ -7,7 +7,7 @@ spring:
 
 price-checker.job:
   active: true
-  refresh-interval-ms: 300000 # 5 minutes
+  refresh-interval-ms: 900000 # 15 minutes
 
 sender:
   address: dario.mauri9@gmail.com
