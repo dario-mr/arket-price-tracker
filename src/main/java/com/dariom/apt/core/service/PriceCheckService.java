@@ -34,20 +34,13 @@ public class PriceCheckService {
         var productName = tracking.getProductName();
         log.info("Checking Arket item {} with desired price {}...", link, desiredPrice);
 
-        var currentPrice = extractPrice(link);
+        var currentPrice = new BigDecimal(documentService.getPageAttribute(link, "price"));
         if (currentPrice.compareTo(desiredPrice) <= 0) {
             log.info("Current price {} is lower than desired price {}!", currentPrice, desiredPrice);
             emailService.send(
                     format("Arket: \"%s\" price dropped!", productName),
                     format("\"%s\" price [%s] fell below desired price [%s].\n\nLink: %s", productName, currentPrice, desiredPrice, link));
         }
-    }
-
-    private BigDecimal extractPrice(String link) {
-        var page = documentService.getPage(link);
-        var price = documentService.extractValue(page, "price");
-
-        return new BigDecimal(price);
     }
 
 }

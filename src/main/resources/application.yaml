@@ -13,6 +13,8 @@ sender:
   address: dario.mauri9@gmail.com
   password: ${SENDER_PASSWORD}
 
+scraper.use-playwright: false
+
 ---
 spring:
   config.activate.on-profile: dev

@@ -29,7 +29,7 @@ public class PriceTrackingService {
     }
 
     public void createPriceTracking(String link, BigDecimal desiredPrice) {
-        var productName = getProductNameFromLink(link);
+        var productName = documentService.getPageAttribute(link, "productName");
         var priceTracking = PriceTracking.builder()
                 .id(null)
                 .createdAt(Instant.now())
@@ -46,8 +46,4 @@ public class PriceTrackingService {
         priceTrackingRepository.save(priceTracking);
     }
 
-    private String getProductNameFromLink(String link) {
-        var page = documentService.getPage(link);
-        return documentService.extractValue(page, "productName");
-    }
 }

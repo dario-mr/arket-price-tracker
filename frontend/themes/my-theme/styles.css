@@ -4,6 +4,7 @@
     --lumo-primary-text-color: #9EC8B9;
     --lumo-primary-color-10pct: #1B4242;
     --lumo-primary-color-50pct: #5C8374;
+    --lumo-body-text-color: #9EC8B9;
 }
 
 .headline {
@@ -13,4 +14,7 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.price-tracking-grid {
 }

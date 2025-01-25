@@ -40,6 +40,7 @@ public class PriceTrackingGrid extends Grid<PriceTracking> {
     public PriceTrackingGrid(PriceTrackingService priceTrackingService) {
         this.priceTrackingService = priceTrackingService;
         addThemeVariants(LUMO_ROW_STRIPES);
+        addClassName("price-tracking-grid");
 
         // add columns
         addColumn(PriceTracking::getProductName)
